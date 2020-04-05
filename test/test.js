@@ -1,4 +1,4 @@
-const Octokit = require('@octokit/rest');
+const { Octokit } = require('@octokit/rest');
 const generateReleaseNotes = require('../lib/generateReleaseNotes');
 const assert = require('assert');
 const fs = require('fs');

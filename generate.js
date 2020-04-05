@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const meow = require('meow');
-const Octokit = require('@octokit/rest');
+const { Octokit } = require('@octokit/rest');
 const generateReleaseNotes = require('./lib/generateReleaseNotes');
 
 const cli = meow(`
