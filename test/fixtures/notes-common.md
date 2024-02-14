@@ -3,9 +3,6 @@
 [Full Changelog](https://github.com/ilios/common/compare/v22.0.0...v22.1.0)
 
 
-**Fixed Bugs:**
-
-- Learning Materials 60-character title limit needs validation/error messages [\#443](https://github.com/ilios/common/issues/443)
 
 
 
