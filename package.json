@@ -8,7 +8,13 @@
   "license": "MIT",
   "private": false,
   "preferGlobal": true,
-  "bin": "./generate.js",
+  "exports": {
+    "./generateReleaseNotes": "./lib/generateReleaseNotes.js"
+  },
+  "type": "module",
+  "bin": {
+    "generate": "generate.js"
+  },
   "scripts": {
     "lint:js": "eslint .",
     "test": "mocha"
@@ -17,21 +23,20 @@
     "@octokit/rest": "^18.0.3",
     "debug": "^4.1.1",
     "handlebars": "^4.0.11",
-    "meow": "^7.0.0",
+    "meow": "^13.2.0",
     "mz": "^2.7.0",
     "rsvp": "^4.8.4"
   },
   "devDependencies": {
-    "eslint": "^6.0.1",
-    "eslint-plugin-mocha": "^6.2.2",
-    "mocha": "^10.0.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-mocha": "^10.2.0",
+    "mocha": "^10.3.0",
     "pre-commit": "^1.2.2"
   },
   "engines": {
-    "node": ">= 12"
+    "node": ">= 18"
   },
   "files": [
-    "main.js",
     "generate.js",
     "lib/",
     "templates/"

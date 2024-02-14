@@ -1,8 +1,6 @@
-#!/usr/bin/env node
-
-const meow = require('meow');
-const { Octokit } = require('@octokit/rest');
-const generateReleaseNotes = require('./lib/generateReleaseNotes');
+import meow from 'meow';
+import { Octokit } from '@octokit/rest';
+import generateReleaseNotes from './lib/generateReleaseNotes.js';
 
 const cli = meow(`
   Usage
@@ -16,6 +14,7 @@ const cli = meow(`
 `,
 {
   booleanDefault: undefined,
+  importMeta: import.meta,
   flags: {
     githubApiToken: {
       type: 'string',
@@ -46,6 +45,6 @@ const octokit = new Octokit({
 });
 
 generateReleaseNotes(octokit, owner, repository, sinceTag, releaseTag).then(releaseNotes => {
-  console.log(releaseNotes);
+  process.stdout.write(releaseNotes);
   process.exit(0);
 });

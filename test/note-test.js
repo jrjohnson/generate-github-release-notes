@@ -1,8 +1,8 @@
-const { Octokit } = require('@octokit/rest');
-const generateReleaseNotes = require('../lib/generateReleaseNotes');
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
+import { Octokit } from '@octokit/rest';
+import generateReleaseNotes from '../lib/generateReleaseNotes.js';
+import assert from 'assert';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
 let auth = undefined;
 if (process.env.GITHUB_API_TOKEN) {
@@ -19,14 +19,15 @@ const octokit = new Octokit({
 
 async function checkNotes(assert, owner, repo, from, to, fixtureName) {
   const notes = await generateReleaseNotes(octokit, owner, repo, from, to);
-  const samplePath = path.join(__dirname, 'fixtures', fixtureName);
+
+  const samplePath = fileURLToPath(new URL(`fixtures/${fixtureName}`, import.meta.url));
   const sampleContent = fs.readFileSync(samplePath, 'utf-8', 'r+');
   assert.ok(notes.length > 0);
   assert.equal(notes, sampleContent);
 }
 
 describe('Comparing Real Release Notes', function () {
-  this.timeout(5000); 
+  this.timeout(10000); 
   it('works for this repo', async function () {
     await checkNotes(
       assert,
@@ -45,6 +46,16 @@ describe('Comparing Real Release Notes', function () {
       'v22.0.0',
       'v22.1.0',
       'notes-common.md'
+    );
+  });
+  it('works for ilios ember-simple-charts', async function () {
+    await checkNotes(
+      assert,
+      'ilios',
+      'ember-simple-charts',
+      'v9.0.3',
+      'v10.0.0',
+      'notes-ember-simple-charts.md'
     );
   });
 });
